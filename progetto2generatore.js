@@ -14,6 +14,6 @@ randomInsult; //= "Il tuo Naso è come una Sciocca Marmotta!!!"
 /* 
 Challenges :
 -1) nuove parole; 
--2) più sofisticati (“Il tuo [parte del corpo] è più [aggettivo] di un [parte del corpo di animale] di [animale] .”; 
+-2) più sofisticati (es “Il tuo [parte del corpo] è più [aggettivo] di un [parte del corpo di animale] di [animale] .”); 
 -3) usa join; 
 */
