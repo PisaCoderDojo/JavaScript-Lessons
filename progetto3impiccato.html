@@ -1,0 +1,75 @@
+// Progetto n°3 - L'impiccato
+
+/*
+PSEUDO CODICE
+Scegli una parola a caso
+While la parola non è stata indovinata {  
+  Mostra al player il progresso corrente   
+  Ottieni un tentativo dal player
+  If il player vuole chiudere il gioco {    
+    Esci dal gioco  
+  }  Else If la risposta non è un singolo carattere {    
+    Avverti il player di scegliere una lettera singola
+  }  Else {    
+    If il tentativo è nella parola {      
+      Aggiorna il propgresso del player  
+    }  
+  } 
+}
+Congratula il player per aver indovinato la parola
+*/
+
+
+<!DOCTYPE html> 
+<html> 
+  <head>    
+    <title>Impiccato!</title> 
+  </head>
+  <body>    
+  <h1>Impiccato!</h1>
+  <script>    
+  // Crea un array di parole    
+  var parole = [      
+    "javascript",      
+    "scimmia",      
+    "dojo",      
+    "ninja"    
+  ];
+    // scegli una parola a caso    
+  var parola = parole[Math.floor(Math.random() * parole.length)];
+    // inizializza rispostaArray    
+  var rispostaArray = [];    
+  for (var i = 0; i < parola.length; i++) {      
+    rispostaArray[i] = "_";    
+  }
+  var lettereRimanenti = parola.length;
+    // ciclo del gioco    
+  while (lettereRimanenti > 0) {      
+    // mostra il progresso al giocatore     
+    alert(rispostaArray.join(" "));
+      // ottieni tentativo dal giocatore      
+    var guess = prompt("Indovina una lettera, o clicca Cancel per smettere di giocare.");      
+    if (guess === null) {        
+      // esci dal ciclo del gioco        
+      break;      
+    } else if (guess.length !== 1) {        
+      alert("Per favore entra una singola lettera.");      
+    } else {        
+      // aggiorna lo stato del gioco        
+      for (var j = 0; j < parola.length; j++) {          
+        if (parola[j] === guess) {            
+          rispostaArray[j] = guess;            
+          lettereRimanenti--;          
+        }        
+      }      
+    }
+    // fine del ciclo del gioco   
+  }
+    // mostra risposta e congratulati con il player    
+  alert(rispostaArray.join(" "));    
+  alert("BEN FATTO! La risposta era " + parola);    
+  </script> 
+  </body> 
+</html>
+ // Challenges: -1) più parole -2) lettere maiuscole -3) Limite tentativi -4) Bug: lettereRimanenti decrementa se indovini la stessa lettera
+
