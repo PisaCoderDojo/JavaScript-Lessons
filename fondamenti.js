@@ -1,4 +1,4 @@
-// Commento lina singola
+// JavaScript Foundamentals for Ninjas at CoderDojo Pisa. Adapted from Nick Morgan's "JavaScript for Kids" 
 /* Un commento
 multi riga */
 
