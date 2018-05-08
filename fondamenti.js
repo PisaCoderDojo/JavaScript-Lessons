@@ -145,7 +145,7 @@ if (piaccionoGatti) {
 alert("JavaScript è fantastico!");
 
 
-// Progetto n°3
+// Progetto n°3 - l'impiccato - https://jsfiddle.net/BuccaneerDev/h5z7cqrb/
 
 <!DOCTYPE html> 
 <html> 
