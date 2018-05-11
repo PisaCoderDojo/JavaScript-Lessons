@@ -9,6 +9,6 @@ var frasi = [
 ];
 // Dovrei bere un altro frullato? 
 frasi[Math.floor(Math.random() * 5)]; //= "Non sono sicuro sia una buona idea" 
-// Should I do my homework? 
+// Dovrei fare i compiti? 
 frasi[Math.floor(Math.random() * 5)]; //= "Forse un altro giorno?"
 
