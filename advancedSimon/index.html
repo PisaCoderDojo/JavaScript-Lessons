@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Simon Game</title>
+
+  <link rel='stylesheet prefetch' href='css/bootstrap.min.css'>
+  <link rel='stylesheet prefetch' href='css/bootstrap-toggle.min.css'>
+  <link rel="stylesheet" href="css/style.css">
+  
+</head>
+
+<body>
+
+  <div class="game-container">
+  <div class="row col-xs-12 text-center">
+    <div class="col-xs-12 ">
+      <h1>Simon Says</h1>
+    </div>
+    <div class="col-xs-12 text-right">
+      <span id="score">0</span> - LEVEL
+    </div>
+  </div>
+
+  <div class="row col-xs-12">
+    <div class="col-xs-6 alien" id="blue">
+       <img src="css/img/ship1.png" class="img-fluid" alt="blue ship">
+    </div>
+    <div class="col-xs-6 alien"id="green">
+       <img src="css/img/ship2.png" class="img-fluid" alt="green ship">
+    </div>
+  </div>
+  <div class="row  col-xs-12">
+    <div class="col-xs-6 alien" id="pink">
+       <img src="css/img/ship3.png" class="img-fluid" alt="pink ship">
+    </div>
+    <div class="col-xs-6 alien" id="yellow">
+       <img src="css/img/ship4.png" class="img-fluid" alt="yellow ship">
+    </div>
+  </div>
+
+  <div class="row col-xs-12 infos">
+    <div class="col-xs-7">
+      <label class="checkbox-inline">
+        <input checked data-toggle="toggle" type="checkbox" class="strict"> Strict-Mode
+      </label>
+    </div>
+    <div class="col-xs-5 text-right">
+      <button type="button" class="btn btn-primary" id="start">Start</button>
+    </div>
+  </div>
+  
+  <div class="row col-xs-12">
+    <p id="credits">Images made available by <a href="https://kenney.nl/" target="_blank">Kenney.nl</a> under public domain license.</p>
+  </div>
+  
+  
+</div>
+  <script src='js/jquery.min.js'></script>
+  <script src='js/bootstrap.min.js'></script>
+  <script src='js/bootstrap-toggle.min.js'></script>
+  <script src='js/howler.min.js'></script>
+  <script  src="js/index.js"></script>
+</body>
+
+</html>
