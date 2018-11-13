@@ -46,16 +46,22 @@ var areaGioco = {
 
 function updateGameArea() {
     var x, height, gap, minHeight, maxHeight, minGap, maxGap;
+    rimuoviCliccati();
     areaGioco.clear();
     areaGioco.frameNo += 1;
     var nuovi = []
     if (areaGioco.frameNo == 1 || ogniMese(frameMese)) {
         mese +=1;
+        var coppia = 0;
         for (i = 0; i < conigli.length; i++) {
-            conigli[i].aggiungiMese();
+          conigli[i].aggiungiMese();
           if (conigli[i].fertile) {
-              var coniglio = new Coniglio();
-              nuovi.push(coniglio);
+              coppia += 1;
+          }
+          if (coppia == 2){
+            var coniglio = new Coniglio();
+            nuovi.push(coniglio);
+            coppia = 0;
           }
         }
         conigli=conigli.concat(nuovi) 
@@ -64,15 +70,23 @@ function updateGameArea() {
         conigli[i].draw();
         conigli[i].update();
     }
-    drawScore();
+    scriviTesto();
 }
 
+function rimuoviCliccati(){
+    for(var i = conigli.length - 1; i >= 0; i--) {
+        if(conigli[i].cliccato) {
+            conigli.splice(i, 1);
+        }
+    }
+}
+    
 function ogniMese(n) {
     if ((areaGioco.frameNo / n) % 1 == 0) {return true;}
     return false;
 }
 
-function drawScore() {
+function scriviTesto() {
     areaGioco.context.font = "18px Arial";
     areaGioco.context.fillStyle = "white";
     areaGioco.context.fillText("MESE: "+mese+" - Coppie Fertili: " + coppieFertili(), 8, 20);
@@ -85,7 +99,7 @@ function coppieFertili(){
             fibo += 1;
         }
     } 
-    return fibo / 2
+    return Math.floor(fibo / 2);
 }
     
 function Coniglio() {
@@ -96,6 +110,7 @@ function Coniglio() {
   this.size = 10
   this.age = 0;  
   this.fertile = false;
+  this.cliccato = false;
 }
 Coniglio.prototype.draw = function() {
   areaGioco.context.drawImage(base_image, this.x-this.size, this.y-this.size,this.size*2, this.size*2);
@@ -132,6 +147,22 @@ function random(min,max) {
   var num = Math.floor(Math.random()*(max-min)) + min;
   return num;
 }
+
+ function intersecato(punto, cerchio) {
+  return Math.sqrt((punto.x-cerchio.x) ** 2 + (punto.y - cerchio.y) ** 2) < cerchio.size;
+}
+
+areaGioco.canvas.addEventListener('click', (e) => {
+  const posizioneMouse = {
+    x: e.clientX,
+    y: e.clientY
+  };
+  conigli.forEach(coniglio => {
+    if (intersecato(posizioneMouse, coniglio)) {
+      coniglio.cliccato = true;
+    }
+  });
+});   
 
 </script>
 <body onload="startGame()">
