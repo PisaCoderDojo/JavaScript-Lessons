@@ -228,7 +228,10 @@
   }
   
   areaGioco.canvas.addEventListener("click",function(e) {
-
+    if (isPausa){
+        togglePausa();
+        return;
+    }
     const intersecato = (punto, cerchio) => {
       return Math.sqrt((punto.x - cerchio.x) ** 2 + (punto.y - cerchio.y) ** 2) < cerchio.size;
     }
