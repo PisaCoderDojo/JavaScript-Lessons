@@ -59,14 +59,8 @@ function updateGameArea() {
             conigli[i].age += 1;
         }
         
-        var adulti = 0;
-        conigli.forEach( coniglio => {
-            if(coniglio.age >= 2) {
-                adulti += 1;
-            }
-        });
+        coppie = contaCoppie();
         
-        coppie = Math.floor(adulti / 2);
         for (var i = 0; i < coppie; i++){
             var coniglio1 = new Coniglio();
             conigli.push(coniglio1);
@@ -95,8 +89,20 @@ function isMese() {
         return false;
     }
 }
-
+    
+function contaCoppie(){
+    var adulti = 0;
+    conigli.forEach( coniglio => {
+        if(coniglio.age >= 2) {
+            adulti += 1;
+        }
+    });
+        
+    return Math.floor(adulti / 2);
+}
+    
 function scriviTesto() {
+    coppie = contaCoppie();
     areaGioco.context.font = "18px Arial";
     areaGioco.context.fillStyle = "white";
     areaGioco.context.fillText("MESE: "+mese+" - Coppie Adulti: " + coppie, 8, 20);
