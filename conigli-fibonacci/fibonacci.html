@@ -17,7 +17,9 @@
   const FRAME_RATE = 20;
   const WIDTH = 800;
   const HEIGHT = 500;
-  const SEC_MESE = 1;
+  const SEC_MESE = 0.5;
+  const MAX_COPPIE = 100;
+  const MAX_MESE = 14;
 
   var imgConiglio = new Image();
   imgConiglio.src = 'rabbit.png';
@@ -36,16 +38,17 @@
   }
 
   function updateGame() {
-    
     if (isMese()) {
-      mese = mese + 1;
+		if (mese < MAX_MESE){
+			mese = mese + 1;
+		}
 
       conigli.forEach(coniglio => {
         coniglio.age = coniglio.age + 1;
       });
 
       var coppie = contaCoppie();
-      if (coppie < 100) {
+      if (coppie < MAX_COPPIE) {
         for (var i = 0; i < coppie; i++){
             var coniglio1 = new Coniglio();
             conigli.push(coniglio1);
