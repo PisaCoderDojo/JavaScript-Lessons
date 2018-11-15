@@ -14,8 +14,7 @@
 </head>
 
 <script>
-	
-  const FRAME_RATE = 20;
+	const FRAME_RATE = 20;
   const WIDTH = 800;
   const HEIGHT = 500;
   const SEC_MESE = 0.5;
@@ -160,7 +159,7 @@
     onClick: function() {}
   }
   
-  areaGioco.onClick = function(e) {
+  areaGioco.canvas.addEventListener("click",function(e) {
 
     const intersecato = (punto, cerchio) => {
       return Math.sqrt((punto.x - cerchio.x) ** 2 + (punto.y - cerchio.y) ** 2) < cerchio.size;
@@ -170,13 +169,15 @@
       x: e.clientX,
       y: e.clientY
     };
-    for (var i = 0; i < conigli.length; i++) {
-      if (intersecato(posizioneMouse, conigli[i])) {
-        conigli.splice(i, 1);
-        break;
-      }
-    }
-  };
+	if(!isPausa) {
+	  for (var i = 0; i < conigli.length; i++) {
+		if (intersecato(posizioneMouse, conigli[i])) {
+			conigli.splice(i, 1);
+			break;
+		}
+	  }
+	}
+  });
   
   function togglePausa(){
     if (!isPausa){
@@ -197,6 +198,7 @@
     var num = Math.floor(Math.random() * (max - min)) + min;
     return num;
   };
+
 	
 </script>
 
