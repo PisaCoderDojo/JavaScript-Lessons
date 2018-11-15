@@ -17,14 +17,13 @@
   const FRAME_RATE = 20;
   const WIDTH = 800;
   const HEIGHT = 500;
-  const SEC_MESE = 5;
+  const SEC_MESE = 1;
 
   var imgConiglio = new Image();
   imgConiglio.src = 'rabbit.png';
 
   var conigli = [];
   var mese = 0;
-  var coppie = 0;
 
   function startGame() {
     var coniglio1 = new Coniglio();
@@ -44,23 +43,14 @@
       conigli.forEach(coniglio => {
         coniglio.age = coniglio.age + 1;
       });
-  
-      
-      var adulti = 0;
-      conigli.forEach(coniglio => {
-        if (coniglio.age >= 2) {
-          adulti = adulti + 1;
-        }
-      });
 
-      
-      coppie = Math.floor(adulti / 2);
-      if (coppie <= 150){
-        for (var i = 0; i < coppie; i++) {
-          var coniglio1 = new Coniglio();
-          var coniglio2 = new Coniglio();
-          conigli.push(coniglio1);
-          conigli.push(coniglio2);
+      var coppie = contaCoppie();
+      if (coppie < 100) {
+        for (var i = 0; i < coppie; i++){
+            var coniglio1 = new Coniglio();
+            conigli.push(coniglio1);
+            var coniglio2 = new Coniglio();
+            conigli.push(coniglio2);
         }
       }
     }
@@ -73,18 +63,28 @@
     scriviTesto();
     
   }
-
-  function scriviTesto() {
-    areaGioco.context.font = "18px Arial";
-    areaGioco.context.fillStyle = "white";
-    areaGioco.context.fillText("MESE: " + mese + " - Coppie Adulti: " + coppie, 8, 20);
-    console.log("MESE: " + mese + " - Coppie Adulti: " + coppie);
+    
+  function contaCoppie(){
+      var adulti = 0;
+      conigli.forEach( coniglio => {
+          if(coniglio.age >= 2) {
+              adulti = adulti + 1;
+          }
+      });
+      return Math.floor(adulti / 2);
   }
+      
+  function scriviTesto() {
+      var coppie = contaCoppie();
+      areaGioco.context.font = "18px Arial";
+      areaGioco.context.fillStyle = "white";
+      areaGioco.context.fillText("MESE: " + mese + " - Coppie Adulti: " + coppie, 8, 20);
+      console.log("MESE: " + mese + " - Coppie Adulti: " + coppie);
+    }
 
 
   class Coniglio {
     constructor() {
-      // console.log("init")
       this.x = random(80, WIDTH - 80);
       this.y = random(80, HEIGHT - 80);
       this.velX = random(-4, 4);
@@ -93,11 +93,9 @@
       this.age = 0;
     }
     draw() {
-      // console.log("draw")
       areaGioco.context.drawImage(imgConiglio, this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
     }
     update() {
-      // console.log("update", this.age)
       if (this.age < 3) {
         this.size += 0.06
       }
@@ -123,8 +121,6 @@
   }
 
 
-  
-  
   /**
    * Library functions
    **/
