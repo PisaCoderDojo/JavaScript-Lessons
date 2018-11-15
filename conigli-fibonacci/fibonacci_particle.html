@@ -22,6 +22,7 @@
   const MAX_COPPIE = 100;
   const MAX_MESE = 14;
   const NUMERO_PARTICELLE = 200;
+  const NUM_EMISS = 3;
     
   var imgConiglio = new Image();
   imgConiglio.src = 'rabbit.png';
@@ -46,6 +47,8 @@
 
   function updateGame() {
     if(!isPausa) {
+        areaGioco.frameNum++;
+        
         rimuoviParticelle();
         
 		if (isMese()) {
@@ -171,16 +174,18 @@
   }    
 
   function emettiParticelle(x, y){
-    for (var i = 0; i < NUMERO_PARTICELLE; i++)
-       particelle.push(new Particella(x, y));
+    if (!isPausa){             
+      for (var i = 0; i < NUMERO_PARTICELLE; i++){
+        particelle.push(new Particella(x, y));
+      }
+    }
   }
 
   function avviaEmettitore(x,y){
       var i = 0;
-      var intervallo = setInterval(function () {  
+      var intervallo = setInterval(function () { 
         emettiParticelle(x, y)
-      
-        if (++i === 5) {
+        if (++i === NUM_EMISS) {
             window.clearInterval(intervallo);
         }
       }, 100);
@@ -212,7 +217,6 @@
       this.frameNum = 0;
       this.interval = setInterval(() => {
         this.updateGameArea();
-        this.frameNum++
       }, FRAME_RATE);
       this.canvas.addEventListener('click', this.onClick);
     },
@@ -256,9 +260,22 @@
 	var key = e.keyCode;
 	if (key == 80 || key == 13){
 		togglePausa();
-	}
+	} else if(key == 82){
+        restartGame();      
+    }
   });
   
+  function restartGame(){
+      conigli = [];
+      mese = 0;
+      particelle = [];
+      isPausa = true;
+      areaGioco.frameNum = 0;
+      conigli.push(new Coniglio());
+      conigli.push(new Coniglio());
+      areaGioco.clear();
+  }
+    
   function random(min, max) {
     var num = Math.floor(Math.random() * (max - min)) + min;
     return num;
@@ -269,7 +286,7 @@
 
 <body onload="startGame()">
   <br>
-
+  <p>Comandi: 'P' Pausa - 'Enter' avvia - 'R' riavvia</p>
   <h1>Conigli di Fibonacci</h1>
   <p>L'intento di Leonardo Fibonacci era quello di trovare una legge matematica che descrivesse la crescita di una
     popolazione di conigli.</p>
