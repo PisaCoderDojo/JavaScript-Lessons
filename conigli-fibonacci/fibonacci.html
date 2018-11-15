@@ -14,6 +14,7 @@
 </head>
 
 <script>
+	
   const FRAME_RATE = 20;
   const WIDTH = 800;
   const HEIGHT = 500;
@@ -26,6 +27,8 @@
 
   var conigli = [];
   var mese = 0;
+  
+  var isPausa = true;
 
   function startGame() {
     var coniglio1 = new Coniglio();
@@ -38,33 +41,34 @@
   }
 
   function updateGame() {
-    if (isMese()) {
-		if (mese < MAX_MESE){
-			mese = mese + 1;
+    if(!isPausa) {
+		if (isMese()) {
+			if (mese < MAX_MESE){
+				mese = mese + 1;
+			}
+	
+		conigli.forEach(coniglio => {
+			coniglio.age = coniglio.age + 1;
+		});
+	
+		var coppie = contaCoppie();
+		if (coppie < MAX_COPPIE) {
+			for (var i = 0; i < coppie; i++){
+				var coniglio1 = new Coniglio();
+				conigli.push(coniglio1);
+				var coniglio2 = new Coniglio();
+				conigli.push(coniglio2);
+			}
 		}
-
-      conigli.forEach(coniglio => {
-        coniglio.age = coniglio.age + 1;
-      });
-
-      var coppie = contaCoppie();
-      if (coppie < MAX_COPPIE) {
-        for (var i = 0; i < coppie; i++){
-            var coniglio1 = new Coniglio();
-            conigli.push(coniglio1);
-            var coniglio2 = new Coniglio();
-            conigli.push(coniglio2);
-        }
-      }
+		}
+		
+		areaGioco.clear();
+		conigli.forEach(coniglio => {
+		coniglio.update();
+		coniglio.draw();
+		});
+		scriviTesto();
     }
-    
-    areaGioco.clear();
-    conigli.forEach(coniglio => {
-      coniglio.update();
-      coniglio.draw();
-    });
-    scriviTesto();
-    
   }
     
   function contaCoppie(){
@@ -174,11 +178,26 @@
     }
   };
   
+  function togglePausa(){
+    if (!isPausa){
+        isPausa = true;
+    } else if (isPausa){
+       isPausa = false;
+    }
+  };
+  
+  window.addEventListener("keydown",function (e){
+	var key = e.keyCode;
+	if (key == 80 || key == 13){
+		togglePausa();
+	}
+  });
+  
   function random(min, max) {
     var num = Math.floor(Math.random() * (max - min)) + min;
     return num;
-  }
-
+  };
+	
 </script>
 
 <body onload="startGame()">
