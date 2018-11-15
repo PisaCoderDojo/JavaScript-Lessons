@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
 <style>
 canvas {
     border:1px solid #d3d3d3;
@@ -12,13 +13,17 @@ canvas {
 
 <script>
 
+const FRAME_RATE = 20;
+const WIDTH = 480;
+const HEIGHT = 270;
+const SEC_MESE = 1;
+
+var imgConiglio = new Image();
+imgConiglio.src = 'rabbit.png';
+
 var conigli = [];
-var mese;
-var width = 480;
-var height = 270;
-var base_image = new Image();
-var frameMese = 150;
-base_image.src = 'rabbit.png';
+var mese = 0;
+var coppie = 0;
     
 function startGame() {
     while (conigli.length < 2) {
@@ -31,13 +36,12 @@ function startGame() {
 var areaGioco = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = width;
-        this.canvas.height = height;
+        this.canvas.width = WIDTH;
+        this.canvas.height = HEIGHT;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
-        mese = 0;
-        this.interval = setInterval(updateGameArea, 20);
+        this.interval = setInterval(updateGameArea, FRAME_RATE);
         },
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -45,104 +49,96 @@ var areaGioco = {
 }
 
 function updateGameArea() {
-    var x, height, gap, minHeight, maxHeight, minGap, maxGap;
-    rimuoviCliccati();
     areaGioco.clear();
     areaGioco.frameNo += 1;
-    var nuovi = []
-    if (areaGioco.frameNo == 1 || ogniMese(frameMese)) {
+    
+    if (isMese()) {
+        
         mese +=1;
-        var coppia = 0;
-        for (i = 0; i < conigli.length; i++) {
-          conigli[i].aggiungiMese();
-          if (conigli[i].fertile) {
-              coppia += 1;
-          }
-          if (coppia == 2){
-            var coniglio1 = new Coniglio();
-            nuovi.push(coniglio1);
-            var coniglio2 = new Coniglio();
-            nuovi.push(coniglio2);
-            coppia = 0;
-          }
+        for (var i = 0; i < conigli.length; i++) {
+            conigli[i].age += 1;
         }
-        conigli=conigli.concat(nuovi) 
+        
+        var adulti = 0;
+        conigli.forEach( coniglio => {
+            if(coniglio.age >= 2) {
+                adulti += 1;
+            }
+        });
+        
+        coppie = Math.floor(adulti / 2);
+        for (var i = 0; i < coppie; i++){
+            var coniglio1 = new Coniglio();
+            conigli.push(coniglio1);
+            var coniglio2 = new Coniglio();
+            conigli.push(coniglio2);
+        }
+
     }
+
     for (i = 0; i < conigli.length; i++) {
-        conigli[i].draw();
         conigli[i].update();
+        conigli[i].draw();
     }
+
     scriviTesto();
+
 }
 
-function rimuoviCliccati(){
-    for(var i = conigli.length - 1; i >= 0; i--) {
-        if(conigli[i].cliccato) {
-            conigli.splice(i, 1);
-        }
-    }
-}
+function isMese() {
+    var mSec = SEC_MESE * 1000
+    var frameMese = mSec / FRAME_RATE
     
-function ogniMese(n) {
-    if ((areaGioco.frameNo / n) % 1 == 0) {return true;}
-    return false;
+    if (areaGioco.frameNo  % frameMese == 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function scriviTesto() {
     areaGioco.context.font = "18px Arial";
     areaGioco.context.fillStyle = "white";
-    areaGioco.context.fillText("MESE: "+mese+" - Coppie Fertili: " + coppieFertili(), 8, 20);
+    areaGioco.context.fillText("MESE: "+mese+" - Coppie Adulti: " + coppie, 8, 20);
+    console.log("MESE: "+mese+" - Coppie Adulti: " + coppie);
 }
     
-function coppieFertili(){
-    var fibo = 0;
-    for (i = 0; i < conigli.length; i++) {
-        if (conigli[i].fertile) {
-            fibo += 1;
-        }
-    } 
-    return Math.floor(fibo / 2);
-}
-    
+ 
 function Coniglio() {
-  this.x = random(80, width-80);
-  this.y = random(80, height-80);
+  this.x = random(80, WIDTH-80);
+  this.y = random(80, HEIGHT-80);
   this.velX = random(-4, 4);
   this.velY = random(-4, 4);
   this.size = 10
-  this.age = 0;  
-  this.fertile = false;
-  this.cliccato = false;
+  this.age = 0;
 }
+
 Coniglio.prototype.draw = function() {
-  areaGioco.context.drawImage(base_image, this.x-this.size, this.y-this.size,this.size*2, this.size*2);
+  areaGioco.context.drawImage(imgConiglio, this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
 }
 
 Coniglio.prototype.update = function() {
   if (this.age < 2){
       this.size += 0.06
   }   
-  if ((this.x + this.size) >= width) {
+  if ((this.x + this.size) >= WIDTH) {
     this.velX = -(this.velX);
+    this.x = WIDTH - this.size - 1
   }
   if ((this.x - this.size) <= 0) {
     this.velX = -(this.velX);
+    this.x = this.size + 1;
   }
-  if ((this.y + this.size) >= height) {
+  if ((this.y + this.size) >= HEIGHT) {
     this.velY = -(this.velY);
+    this.y = HEIGHT - this.size - 1
   }
   if ((this.y - this.size) <= 0) {
     this.velY = -(this.velY);
+    this.y = this.size + 1;
   }
   this.x += this.velX;
   this.y += this.velY;
-}
-
-Coniglio.prototype.aggiungiMese = function() {
-    this.age += 1;
-    if (this.age == 2){
-        this.fertile = true;
-    }
 } 
 
 function random(min,max) {
@@ -150,20 +146,22 @@ function random(min,max) {
   return num;
 }
 
- function intersecato(punto, cerchio) {
-  return Math.sqrt((punto.x-cerchio.x) ** 2 + (punto.y - cerchio.y) ** 2) < cerchio.size;
-}
-
 areaGioco.canvas.addEventListener('click', (e) => {
-  const posizioneMouse = {
-    x: e.clientX,
-    y: e.clientY
-  };
-  conigli.forEach(coniglio => {
-    if (intersecato(posizioneMouse, coniglio)) {
-      coniglio.cliccato = true;
+    
+    const intersecato = (punto, cerchio) => {
+        return Math.sqrt((punto.x-cerchio.x) ** 2 + (punto.y - cerchio.y) ** 2) < cerchio.size;
     }
-  });
+     
+    const posizioneMouse = {
+        x: e.clientX,
+        y: e.clientY
+    };
+    for(var i = 0 ; i < conigli.length; i++) {
+        if(intersecato(posizioneMouse, conigli[i])) {
+            conigli.splice(i, 1);
+            break;
+        }
+    }
 });   
 
 </script>
@@ -178,17 +176,17 @@ areaGioco.canvas.addEventListener('click', (e) => {
     <li> si disponga di una coppia di conigli appena nati
     </li>
 
-<li>questa coppia (la prima) diventi fertile al compimento del primo mese e dia alla luce una nuova coppia al compimento del secondo mese;</li>
+<li>questa coppia (la prima) diventi adulta al compimento del primo mese e dia alla luce una nuova coppia al compimento del secondo mese;</li>
 <li>le nuove coppie nate si comportino in modo analogo;</li>
-<li>le coppie fertili, dal secondo mese di vita in poi, diano alla luce una coppia di figli al mese;</li>
+<li>le coppie adulte, dal secondo mese di vita in poi, diano alla luce una coppia di figli al mese;</li>
     </ul>
 <p>si verifica quanto segue:</p>
 <ul>
-    <li>dopo un mese una coppia di conigli sarà fertile,
+    <li>dopo un mese una coppia di conigli sarà adulta,
     </li>
-    <li>dopo due mesi ci saranno due coppie di cui una sola fertile,
+    <li>dopo due mesi ci saranno due coppie di cui una sola adulta,
     </li>
-    <li>nel mese seguente (terzo mese dal momento iniziale) ci saranno 2+1=3 coppie perché solo la coppia fertile avrà generato; di queste tre due saranno le coppie fertili, quindi</li>
+    <li>nel mese seguente (terzo mese dal momento iniziale) ci saranno 2+1=3 coppie perché solo la coppia adulta avrà generato; di queste tre due saranno le coppie adulte, quindi</li>
      <li>nel mese seguente (quarto mese dal momento iniziale) ci saranno 3+2=5 coppie</li>
      <li>In questo esempio, il numero di coppie di conigli di ogni mese esprime la successione di Fibonacci.</li>
     </ul>
