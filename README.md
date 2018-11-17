@@ -5,4 +5,4 @@ JavaScript lessons and projects for the CoderDojo, materials adapted from:
 * [Microsoft MakeCode](https://makecode.microbit.org/);
 
 ## conigli-fibonacci
- Fibonacci's fictional and slightly unbelievable baby rabbits. Demo [CodePen](https://codepen.io/BuccaneerDev/pen/EOZpzJ?editors=1100).
+ Fibonacci's fictional and slightly unbelievable baby rabbits. Demo [CodePen](https://codepen.io/BuccaneerDev/full/EOZpzJ/).
