@@ -7,7 +7,7 @@
   <style>
     canvas {
       border: 1px solid #d3d3d3;
-      background-image: url('grass.jpg');
+      background-image: url('prato.jpg');
       cursor:url(bacchetta.cur), auto;
     }
 
@@ -23,7 +23,7 @@
   const MAX_MESE = 14;
 
   var imgConiglio = new Image();
-  imgConiglio.src = 'rabbit.png';
+  imgConiglio.src = 'coniglietto.png';
 
   var conigli = [];
   var mese = 0;
@@ -104,7 +104,7 @@
     }
     update() {
       if (this.age < 3) {
-        this.size += 0.06
+        this.size += 0.06;
       }
       if ((this.x + this.size) >= WIDTH) {
         this.velX = -(this.velX);
@@ -161,7 +161,10 @@
   }
   
   areaGioco.canvas.addEventListener("click",function(e) {
-
+    if (isPausa){
+      togglePausa();
+      return;
+    }
     const intersecato = (punto, cerchio) => {
       return Math.sqrt((punto.x - cerchio.x) ** 2 + (punto.y - cerchio.y) ** 2) < cerchio.size;
     }
