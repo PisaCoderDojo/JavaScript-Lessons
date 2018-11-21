@@ -122,7 +122,7 @@ function nome(parametro1, parametro2, parametro3) {
 ** Disegna quanti gatti vuoi!! 
 **/
 function disegnaGatti(quanteVolte){		
-  for(var i	= 0; i < quanteVolte; i++){				
+  for(var i = 0; i < quanteVolte; i++){				
     console.log(i + " =^.^=");		
   } 
 };
