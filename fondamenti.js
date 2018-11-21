@@ -112,11 +112,11 @@ if (piaccionoGatti) {
 alert("JavaScript è fantastico!");
 
 /**
-// Esempio:	Disegna quanti gatti vuoi!! 
+// Funzioni:	Disegna quanti gatti vuoi!! 
 **/
 function disegnaGatti(quanteVolte){		
-  for	(var	i	=	0;	i	<	quanteVolte;	i++){				
-    console.log(i	+	"	=^.^=");		
+  for(var i	= 0; i < quanteVolte; i++){				
+    console.log(i + " =^.^=");		
   } 
 };
 disegnaGatti(10);	
