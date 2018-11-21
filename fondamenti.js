@@ -30,10 +30,11 @@ false;
 2 <= 2; // = true
 2 >= 2; // = true
 
-// Stringe
+/**
+** Stringe
+**/
 'ninja';
 "Coder Dojo";
-
 "CoderDojo " + "Pisa!"; // = "CoderDojo Pisa!"
 "Pisa"[1] = // = 'i'
 "Coder Dojo!".substring(0, 5); // = "Coder"
@@ -41,7 +42,9 @@ false;
 "CoderDojo Pisa".toUpperCase(); // = "CODERDOJO PISA"
 "CoderDojo Pisa".toLowerCase(); // = "coderdojo pisa"
 
-// Variabili
+/**
+** Variabili
+**/
 var ninja = 20;
 var mentori; // = undefined
 
@@ -50,11 +53,15 @@ ninja *= 5; // ninja = ninja * 5;
 ninja++; // incrementa ninja di 1
 ninja--; // decrementa ninja di 1
 
-// Operatori logici
+/**
+** Operatori logici
+**/
 var fineSettimana = false, docciaFatta = true, hoUnaMela = false, hoUnArancia = true;
 var vaiAScuola = !fineSettimana && docciaFatta && (hoUnaMela || hoUnArancia); // = true
 
-// Array
+/**
+** Array
+**/
 var colori = ["rosso", "verde", "giallo"]; 
 colori[0]; // = "rosso" 
 colori.length; //= 3
@@ -65,8 +72,9 @@ var tantiColori = colori.concat(["bianco","nero"], ["viola","arancione"]); // co
 colori.indexOf("rosso"); // = 3
 colori.join('-'); // = "verde-giallo-blu-rosso"
 
-
-// if ... else
+/**
+** if ... else
+**/
 if (condizione){  
   console.log("Fa qualcosa"); 
 } else if (altraCondizione){  
@@ -75,18 +83,24 @@ if (condizione){
   console.log("Fa qualcosa'altro!"); 
 }
 
-// while
+/**
+** while
+**/
 while (condizione) {  
   console.log("Fa qualcosa");  
   i++; 
 }
 
-// for
+/**
+** for
+**/
 for (setup; condizione; incremento) {  
   console.log("Fa qualcosa"); 
 } 
 
-// prompt , confirm , alert
+/**
+** prompt , confirm , alert
+**/
 var nome = prompt("Qual'è il tuo nome?"); 
 console.log("Ciao " + nome);
 var piaccionoGatti = confirm("Ti piacciono i gatti?"); 
@@ -96,3 +110,13 @@ if (piaccionoGatti) {
   console.log("Va bene... Sei comunque ingamba!"); 
 }
 alert("JavaScript è fantastico!");
+
+/**
+// Esempio:	Disegna quanti gatti vuoi!! 
+**/
+function disegnaGatti(quanteVolte){		
+  for	(var	i	=	0;	i	<	quanteVolte;	i++){				
+    console.log(i	+	"	=^.^=");		
+  } 
+};
+disegnaGatti(10);	
