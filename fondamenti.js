@@ -112,14 +112,14 @@ if (piaccionoGatti) {
 alert("JavaScript è fantastico!");
 
 /**
-// Funzioni:	
+** Funzioni:	
 **/
 function nome(parametro1, parametro2, parametro3) {
     codice da eseguire
 }
 
 /**
-Disegna quanti gatti vuoi!! 
+** Disegna quanti gatti vuoi!! 
 **/
 function disegnaGatti(quanteVolte){		
   for(var i	= 0; i < quanteVolte; i++){				
