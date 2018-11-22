@@ -51,10 +51,8 @@
         
         rimuoviParticelle();
         
-		if (isMese()) {
-			if (mese < MAX_MESE){
-				mese = mese + 1;
-			}
+		if (isMese() && (mese < MAX_MESE)) {
+		mese = mese + 1;
 	
 		conigli.forEach(coniglio => {
 			coniglio.age = coniglio.age + 1;
