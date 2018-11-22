@@ -47,10 +47,8 @@
     
       function updateGame() {
         if(!isPausa) {
-    		if (isMese()) {
-    			if (mese < MAX_MESE){
-    				mese = mese + 1;
-    			}
+    		if (isMese() && (mese < MAX_MESE)) {
+		mese = mese + 1;
     	
     		  /*
     			*Anche i conigli invecchiano
