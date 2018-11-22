@@ -133,57 +133,49 @@
     					  
           */
         }
-    
-    
-      class Coniglio {
-        constructor() {
-          this.x = random(80, WIDTH - 80);
-          this.y = random(80, HEIGHT - 80);
-          this.velX = random(-4, 4);
-          this.velY = random(-4, 4);
-          this.size = 10
-          this.age = 0;
-        }
-        draw() {
-    		/*
-    			*Disegna un Coniglio sullo schermo
-    			
-    			Oltre a `age`, Coniglio ha anche altri attributi: per adesso
-    			ci concentriamo su `x`, `y` e `size`.
-    			`x` e `y` indicano la posizione del coniglio nello spazio,
-    			`size` le dimensioni.
-    			In JavaScript possiamo disegnare un'immagine sullo schermo
-    			utilizzando la funzione drawImage
-    			 -> context.drawImage(img, x, y, width, height);
-    			
-    			Fino ad ora abbiamo:
-    			img 	-> imgConiglio
-    			x 		-> this.x
-    			y 		-> this.y
-    			width 	-> this.size
-    			height 	-> this.size
-    			
-    			Mancano width (ampiezza) e height (altezza)
-    			
-    			
-    			      areaGioco.context.drawImage(imgConiglio, this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
-    
-    
-    		*/
-            
-        }
-        update() {
-    
-          // aumenta le dimensioni del coniglio  
-          
-            
-          // fai muovere il coniglio nello schermo 
-    
-        }
-      }
-      /**
-      * Funzioni sfida
-      **/
+		
+		
+	  class Coniglio {
+		constructor() {
+		  this.x = random(80, WIDTH - 80);
+		  this.y = random(80, HEIGHT - 80);
+		  this.velX = random(-4, 4);
+		  this.velY = random(-4, 4);
+		  this.size = 10
+		  this.age = 0;
+		}
+		draw() {
+		  areaGioco.context.drawImage(imgConiglio, this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
+		}
+		update() {
+		  if (this.age < 3) {
+			this.size += 0.06;
+		  }
+		  if ((this.x + this.size) >= WIDTH) {
+			this.velX = -(this.velX);
+			this.x = WIDTH - this.size - 1
+		  }
+		  if ((this.x - this.size) <= 0) {
+			this.velX = -(this.velX);
+			this.x = this.size + 1;
+		  }
+		  if ((this.y + this.size) >= HEIGHT) {
+			this.velY = -(this.velY);
+			this.y = HEIGHT - this.size - 1
+		  }
+		  if ((this.y - this.size) <= 0) {
+			this.velY = -(this.velY);
+			this.y = this.size + 1;
+		  }
+		  this.x += this.velX;
+		  this.y += this.velY;
+		}
+	  }
+	  
+      /*
+		*Funzioni sfida
+      
+      */
       
       function riavviaGioco(){
           
@@ -197,7 +189,12 @@
           
       }
     
-      // sperimenta con i parametri ed aggiungi altro codice! Sempre in gamba! ;)    
+      /* 
+		
+		Sperimenta con i parametri ed aggiungi altro codice!
+		Sempre in gamba!
+	  
+	  */    
         
     
       /**
