@@ -19,9 +19,12 @@
   const WIDTH = 800;
   const HEIGHT = 500;
   const SEC_MESE = 0.5;
-  const MAX_COPPIE = 100;
   const MAX_MESE = 14;
-
+  const MOVIMENTO = true;
+  const MOUSE_CLICK = true;
+    
+  var CUCCIOLI = true;
+    
   var imgConiglio = new Image();
   imgConiglio.src = 'coniglietto.png';
 
@@ -42,16 +45,14 @@
 
   function updateGame() {
     if(!isPausa) {
-		if (isMese() && (mese < MAX_MESE)) {
-				mese = mese + 1;
-			
+		if (isMese() ) {
 	
 		conigli.forEach(coniglio => {
 			coniglio.age = coniglio.age + 1;
 		});
 	
 		var coppie = contaCoppie();
-		if (coppie < MAX_COPPIE) {
+		if (CUCCIOLI) {
 			for (var i = 0; i < coppie; i++){
 				var coniglio1 = new Coniglio();
 				conigli.push(coniglio1);
@@ -105,6 +106,9 @@
       if (this.age < 3) {
         this.size += 0.06;
       }
+        
+      if(!MOVIMENTO) return;
+        
       if ((this.x + this.size) >= WIDTH) {
         this.velX = -(this.velX);
         this.x = WIDTH - this.size - 1
@@ -130,14 +134,20 @@
   /**
    * Library functions
    **/
+    
   function isMese() {
     var frameMese = (SEC_MESE * 1000) / FRAME_RATE
     if (areaGioco.frameNum % frameMese == 0) {
+      if (mese < MAX_MESE){
+         mese = mese + 1;
+      } 
+      CUCCIOLI = (mese < MAX_MESE - 2 );
       return true;
     } else {
       return false;
     }
   }
+    
   var areaGioco = {
     canvas: document.createElement("canvas"),
     start: function () {
@@ -164,6 +174,9 @@
       togglePausa();
       return;
     }
+    
+    if (!MOUSE_CLICK) return;  
+      
     const intersecato = (punto, cerchio) => {
       return Math.sqrt((punto.x - cerchio.x) ** 2 + (punto.y - cerchio.y) ** 2) < cerchio.size;
     }
