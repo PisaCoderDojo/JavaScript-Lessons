@@ -13,9 +13,9 @@
 </head>
 <script>
   
-/**
-* Codice da completare
-**/
+/*
+	Codice da completare
+*/
   const FRAME_RATE = 20;
   const WIDTH = 800;
   const HEIGHT = 500;
@@ -32,8 +32,14 @@
   var isPausa = true;
 
   function startGame() {
-    
-    // inizializza il gioco
+    /*
+		*Inizializza il gioco
+		
+    	Cosa avviene all'inizio della "partita"?
+		Fibonacci compra due conigli. 
+		Dobbiamo quindi inizializzare due conigli e aggiungerli 
+		all'array "conigli" :)
+    */
 
     areaGioco.updateGameArea = updateGame;
     areaGioco.start();
@@ -46,11 +52,45 @@
 				mese = mese + 1;
 			}
 	
-		  // fa maturare i conigli
+		  /*
+			*Anche i conigli invecchiano
+			
+			Per ogni mese che passa ( mese = mese + 1 ), tutti i conigli
+			invecchiano.
+			Ovviamente noi stiamo lavorando con una rappresentazione
+			di un coniglio, non con un coniglio in carne e ossa.
+			Come possiamo, quindi, far capire al nostro gioco che un 
+			certo coniglio è cresciuto?
+			
+			Guardiamo meglio la classe Coniglio...
+			  class Coniglio {
+				...
+			    this.age = 0;
+				...
+			  }
+			  
+			  `age` è un attributo (attributo è un sinonimo di 
+			  aggettivo!) di Coniglio, ci dice perciò qualcosa di più
+			  su Coniglio.
+			  In questo caso, l'età :)
+			  
+			Suggerimento: potremmo usare un forEach!
+		  
+		  */
 	
-            
-		  // crea nuove coppie di conigli
-            
+          /*
+			*Crea nuove coppie di conigli!
+			
+			Sappiamo che i Conigli di Fibonacci sono dei conigli
+			un po' particolari: le coppie di conigli adulte, ogni mese,
+			danno alla luce una nuova coppia di conigli.
+			
+			
+			Suggerimento: Per contare le coppie di conigli adulti è 
+						  più pratico implementare una funzione
+						  apposita - contaCoppie(); per aggiungere una
+						  coppia abbiamo già visto come fare.
+          */
             
 		}
 		
@@ -64,15 +104,34 @@
   }
     
   function contaCoppie(){
-      
-      // conta il numero di coppie adulte
+      /*
+		*Conta il numero di coppie di conigli adulti
+		
+		Questa funzione ci serve per contare il numero di coppie di
+		conigli adulti.
+		
+		Suggerimento: Ti ricordi quando abbiamo fatto invecchiare i 
+					  conigli? Forse è il caso di riguardare 
+					  quella parte :)
+      */
       
   }
       
   function scriviTesto() {
-      
-      // scrivi il numero di coppie ed il mese su schermo
-      
+      /*
+		*Scrivi su schermo il numero di coppie/il mese
+		Per scrivere su schermo possiamo usare la funzione fillText
+		-> context.fillText(text, x, y, maxWidth);
+		
+		Abbiamo:
+		text 	 -> il numero di coppie con contaCoppie()
+		x, y 	 -> dove vogliamo che il testo venga scritto
+		maxWidth -> in questo caso non è necessario
+		
+		Suggerimento: per migliorare la visibilità del testo usa
+					  `context.font` e `context.fillStyle`
+					  
+      */
     }
 
 
@@ -86,8 +145,31 @@
       this.age = 0;
     }
     draw() {
-      
-      // disegna il coniglio sullo schermo
+		/*
+			*Disegna un Coniglio sullo schermo
+			
+			Oltre a `age`, Coniglio ha anche altri attributi: per adesso
+			ci concentriamo su `x`, `y` e `size`.
+			`x` e `y` indicano la posizione del coniglio nello spazio,
+			`size` le dimensioni.
+			In JavaScript possiamo disegnare un'immagine sullo schermo
+			utilizzando la funzione drawImage
+			 -> context.drawImage(img, x, y, width, height);
+			
+			Fino ad ora abbiamo:
+			img 	-> imgConiglio
+			x 		-> this.x
+			y 		-> this.y
+			width 	-> this.size
+			height 	-> this.size
+			
+			Mancano width (ampiezza) e height (altezza)
+			
+			
+			      areaGioco.context.drawImage(imgConiglio, this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
+
+
+		*/
         
     }
     update() {
