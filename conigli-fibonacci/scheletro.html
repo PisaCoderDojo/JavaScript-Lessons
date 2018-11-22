@@ -1,306 +1,306 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta charset="UTF-8">
-  <style>
-    canvas {
-      border: 1px solid #d3d3d3;
-      background-image: url('prato.jpg');
-      cursor:url(bacchetta.cur), auto;
-    }
-  </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <style>
+        canvas {
+          border: 1px solid #d3d3d3;
+          background-image: url('prato.jpg');
+          cursor:url(bacchetta.cur), auto;
+        }
+    </style>
 </head>
 <script>
-  
-/*
-	Codice da completare
-*/
-  const FRAME_RATE = 20;
-  const WIDTH = 800;
-  const HEIGHT = 500;
-  const SEC_MESE = 0.5;
-  const MAX_COPPIE = 100;
-  const MAX_MESE = 14;
-
-  var imgConiglio = new Image();
-  imgConiglio.src = 'coniglietto.png';
-
-  var conigli = [];
-  var mese = 0;
-  
-  var isPausa = true;
-
-  function startGame() {
     /*
-		*Inizializza il gioco
-		
-    	Cosa avviene all'inizio della "partita"?
-		Fibonacci compra due conigli. 
-		Dobbiamo quindi inizializzare due conigli e aggiungerli 
-		all'array "conigli" :)
+    	Codice da completare
     */
-
-    areaGioco.updateGameArea = updateGame;
-    areaGioco.start();
-  }
-
-  function updateGame() {
-    if(!isPausa) {
-		if (isMese()) {
-			if (mese < MAX_MESE){
-				mese = mese + 1;
-			}
-	
-		  /*
-			*Anche i conigli invecchiano
-			
-			Per ogni mese che passa ( mese = mese + 1 ), tutti i conigli
-			invecchiano.
-			Ovviamente noi stiamo lavorando con una rappresentazione
-			di un coniglio, non con un coniglio in carne e ossa.
-			Come possiamo, quindi, far capire al nostro gioco che un 
-			certo coniglio è cresciuto?
-			
-			Guardiamo meglio la classe Coniglio...
-			  class Coniglio {
-				...
-			    this.age = 0;
-				...
-			  }
-			  
-			  `age` è un attributo (attributo è un sinonimo di 
-			  aggettivo!) di Coniglio, ci dice perciò qualcosa di più
-			  su Coniglio.
-			  In questo caso, l'età :)
-			  
-			Suggerimento: potremmo usare un forEach!
-		  
-		  */
-	
+      const FRAME_RATE = 20;
+      const WIDTH = 800;
+      const HEIGHT = 500;
+      const SEC_MESE = 0.5;
+      const MAX_COPPIE = 100;
+      const MAX_MESE = 14;
+    
+      var imgConiglio = new Image();
+      imgConiglio.src = 'coniglietto.png';
+    
+      var conigli = [];
+      var mese = 0;
+      
+      var isPausa = true;
+    
+      function startGame() {
+        /*
+    		*Inizializza il gioco
+    		
+        	Cosa avviene all'inizio della "partita"?
+    		Fibonacci compra due conigli. 
+    		Dobbiamo quindi inizializzare due conigli e aggiungerli 
+    		all'array "conigli" :)
+        */
+    
+        areaGioco.updateGameArea = updateGame;
+        areaGioco.start();
+      }
+    
+      function updateGame() {
+        if(!isPausa) {
+    		if (isMese()) {
+    			if (mese < MAX_MESE){
+    				mese = mese + 1;
+    			}
+    	
+    		  /*
+    			*Anche i conigli invecchiano
+    			
+    			Per ogni mese che passa ( mese = mese + 1 ), tutti i conigli
+    			invecchiano.
+    			Ovviamente noi stiamo lavorando con una rappresentazione
+    			di un coniglio, non con un coniglio in carne e ossa.
+    			Come possiamo, quindi, far capire al nostro gioco che un 
+    			certo coniglio è cresciuto?
+    			
+    			Guardiamo meglio la classe Coniglio...
+    			  class Coniglio {
+    				...
+    			    this.age = 0;
+    				...
+    			  }
+    			  
+    			  `age` è un attributo (attributo è un sinonimo di 
+    			  aggettivo!) di Coniglio, ci dice perciò qualcosa di più
+    			  su Coniglio.
+    			  In questo caso, l'età :)
+    			  
+    			Suggerimento: potremmo usare un forEach!
+    		  
+    		  */
+    	
+              /*
+    			*Crea nuove coppie di conigli!
+    			
+    			Sappiamo che i Conigli di Fibonacci sono dei conigli
+    			un po' particolari: le coppie di conigli adulte, ogni mese,
+    			danno alla luce una nuova coppia di conigli.
+    			
+    			
+    			Suggerimento: Per contare le coppie di conigli adulti è 
+    						  più pratico implementare una funzione
+    						  apposita - contaCoppie(); per aggiungere una
+    						  coppia abbiamo già visto come fare.
+              */
+                
+    		}
+    		
+    		areaGioco.clear();
+    		conigli.forEach(coniglio => {
+    		  coniglio.update();
+    		  coniglio.draw();
+    		});
+    		scriviTesto();
+        }
+      }
+        
+      function contaCoppie(){
           /*
-			*Crea nuove coppie di conigli!
-			
-			Sappiamo che i Conigli di Fibonacci sono dei conigli
-			un po' particolari: le coppie di conigli adulte, ogni mese,
-			danno alla luce una nuova coppia di conigli.
-			
-			
-			Suggerimento: Per contare le coppie di conigli adulti è 
-						  più pratico implementare una funzione
-						  apposita - contaCoppie(); per aggiungere una
-						  coppia abbiamo già visto come fare.
+    		*Conta il numero di coppie di conigli adulti
+    		
+    		Questa funzione ci serve per contare il numero di coppie di
+    		conigli adulti.
+    		
+    		Suggerimento: Ti ricordi quando abbiamo fatto invecchiare i 
+    					  conigli? Forse è il caso di riguardare 
+    					  quella parte :)
           */
+          
+      }
+          
+      function scriviTesto() {
+          /*
+    		*Scrivi su schermo il numero di coppie/il mese
+    		Per scrivere su schermo possiamo usare la funzione fillText
+    		-> context.fillText(text, x, y, maxWidth);
+    		
+    		Abbiamo:
+    		text 	 -> il numero di coppie con contaCoppie()
+    		x, y 	 -> dove vogliamo che il testo venga scritto
+    		maxWidth -> in questo caso non è necessario
+    		
+    		Suggerimento: per migliorare la visibilità del testo usa
+    					  `context.font` e `context.fillStyle`
+    					  
+          */
+        }
+    
+    
+      class Coniglio {
+        constructor() {
+          this.x = random(80, WIDTH - 80);
+          this.y = random(80, HEIGHT - 80);
+          this.velX = random(-4, 4);
+          this.velY = random(-4, 4);
+          this.size = 10
+          this.age = 0;
+        }
+        draw() {
+    		/*
+    			*Disegna un Coniglio sullo schermo
+    			
+    			Oltre a `age`, Coniglio ha anche altri attributi: per adesso
+    			ci concentriamo su `x`, `y` e `size`.
+    			`x` e `y` indicano la posizione del coniglio nello spazio,
+    			`size` le dimensioni.
+    			In JavaScript possiamo disegnare un'immagine sullo schermo
+    			utilizzando la funzione drawImage
+    			 -> context.drawImage(img, x, y, width, height);
+    			
+    			Fino ad ora abbiamo:
+    			img 	-> imgConiglio
+    			x 		-> this.x
+    			y 		-> this.y
+    			width 	-> this.size
+    			height 	-> this.size
+    			
+    			Mancano width (ampiezza) e height (altezza)
+    			
+    			
+    			      areaGioco.context.drawImage(imgConiglio, this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
+    
+    
+    		*/
             
-		}
-		
-		areaGioco.clear();
-		conigli.forEach(coniglio => {
-		  coniglio.update();
-		  coniglio.draw();
-		});
-		scriviTesto();
-    }
-  }
+        }
+        update() {
     
-  function contaCoppie(){
-      /*
-		*Conta il numero di coppie di conigli adulti
-		
-		Questa funzione ci serve per contare il numero di coppie di
-		conigli adulti.
-		
-		Suggerimento: Ti ricordi quando abbiamo fatto invecchiare i 
-					  conigli? Forse è il caso di riguardare 
-					  quella parte :)
-      */
+          // aumenta le dimensioni del coniglio  
+          
+            
+          // fai muovere il coniglio nello schermo 
+    
+        }
+      }
+      /**
+      * Funzioni sfida
+      **/
       
-  }
+      function riavviaGioco(){
+          
+          // aggiungi la possibilita di restartare
+          
+      }
       
-  function scriviTesto() {
-      /*
-		*Scrivi su schermo il numero di coppie/il mese
-		Per scrivere su schermo possiamo usare la funzione fillText
-		-> context.fillText(text, x, y, maxWidth);
-		
-		Abbiamo:
-		text 	 -> il numero di coppie con contaCoppie()
-		x, y 	 -> dove vogliamo che il testo venga scritto
-		maxWidth -> in questo caso non è necessario
-		
-		Suggerimento: per migliorare la visibilità del testo usa
-					  `context.font` e `context.fillStyle`
-					  
-      */
-    }
-
-
-  class Coniglio {
-    constructor() {
-      this.x = random(80, WIDTH - 80);
-      this.y = random(80, HEIGHT - 80);
-      this.velX = random(-4, 4);
-      this.velY = random(-4, 4);
-      this.size = 10
-      this.age = 0;
-    }
-    draw() {
-		/*
-			*Disegna un Coniglio sullo schermo
-			
-			Oltre a `age`, Coniglio ha anche altri attributi: per adesso
-			ci concentriamo su `x`, `y` e `size`.
-			`x` e `y` indicano la posizione del coniglio nello spazio,
-			`size` le dimensioni.
-			In JavaScript possiamo disegnare un'immagine sullo schermo
-			utilizzando la funzione drawImage
-			 -> context.drawImage(img, x, y, width, height);
-			
-			Fino ad ora abbiamo:
-			img 	-> imgConiglio
-			x 		-> this.x
-			y 		-> this.y
-			width 	-> this.size
-			height 	-> this.size
-			
-			Mancano width (ampiezza) e height (altezza)
-			
-			
-			      areaGioco.context.drawImage(imgConiglio, this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
-
-
-		*/
+      class Puff {
         
-    }
-    update() {
-
-      // aumenta le dimensioni del coniglio  
-      
+          // aggiungi effetti speciali!
+          
+      }
+    
+      // sperimenta con i parametri ed aggiungi altro codice! Sempre in gamba! ;)    
         
-      // fai muovere il coniglio nello schermo 
-
-    }
-  }
-  /**
-  * Funzioni sfida
-  **/
-  
-  function riavviaGioco(){
-      
-      // aggiungi la possibilita di restartare
-      
-  }
-  
-  class Puff {
     
-      // aggiungi effetti speciali!
+      /**
+       * Funzioni di libreria
+       **/
+          
+      function isMese() {
+        var frameMese = (SEC_MESE * 1000) / FRAME_RATE
+        if (areaGioco.frameNum % frameMese == 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+        
+      var areaGioco = {
+        canvas: document.createElement("canvas"),
+        start: function () {
+          this.canvas.width = WIDTH;
+          this.canvas.height = HEIGHT;
+          this.context = this.canvas.getContext("2d");
+          document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+          this.frameNum = 0;
+          this.interval = setInterval(() => {
+            this.updateGameArea();
+            this.frameNum++;
+          }, FRAME_RATE);
+          this.canvas.addEventListener('click', this.onClick);
+        },
+        clear: function () {
+          this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        },
+        updateGameArea: function () {},
+        onClick: function() {}
+      }
       
-  }
-
-  // sperimenta con i parametri ed aggiungi altro codice! Sempre in gamba! ;)    
+      areaGioco.canvas.addEventListener("click",function(e) {
     
-
-  /**
-   * Funzioni di libreria
-   **/
-      
-  function isMese() {
-    var frameMese = (SEC_MESE * 1000) / FRAME_RATE
-    if (areaGioco.frameNum % frameMese == 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+        if (isPausa){
+          togglePausa();
+          return;
+        }     
+          
+        const intersecato = (punto, cerchio) => {
+          return Math.sqrt((punto.x - cerchio.x) ** 2 + (punto.y - cerchio.y) ** 2) < cerchio.size;
+        }
     
-  var areaGioco = {
-    canvas: document.createElement("canvas"),
-    start: function () {
-      this.canvas.width = WIDTH;
-      this.canvas.height = HEIGHT;
-      this.context = this.canvas.getContext("2d");
-      document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-      this.frameNum = 0;
-      this.interval = setInterval(() => {
-        this.updateGameArea();
-        this.frameNum++;
-      }, FRAME_RATE);
-      this.canvas.addEventListener('click', this.onClick);
-    },
-    clear: function () {
-      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    },
-    updateGameArea: function () {},
-    onClick: function() {}
-  }
-  
-  areaGioco.canvas.addEventListener("click",function(e) {
-
-    if (isPausa){
-      togglePausa();
-      return;
-    }     
+        const posizioneMouse = {
+          x: e.clientX,
+          y: e.clientY
+        };
+          
+    	if(!isPausa) {
+    	  for (var i = 0; i < conigli.length; i++) {
+    		if (intersecato(posizioneMouse, conigli[i])) {
+    			conigli.splice(i, 1);
+    			break;
+    		}
+    	  }
+    	}
+      });
       
-    const intersecato = (punto, cerchio) => {
-      return Math.sqrt((punto.x - cerchio.x) ** 2 + (punto.y - cerchio.y) ** 2) < cerchio.size;
-    }
-
-    const posizioneMouse = {
-      x: e.clientX,
-      y: e.clientY
-    };
+      function togglePausa(){
+        if (!isPausa){
+            isPausa = true;
+        } else if (isPausa){
+           isPausa = false;
+        }
+      };
       
-	if(!isPausa) {
-	  for (var i = 0; i < conigli.length; i++) {
-		if (intersecato(posizioneMouse, conigli[i])) {
-			conigli.splice(i, 1);
-			break;
-		}
-	  }
-	}
-  });
-  
-  function togglePausa(){
-    if (!isPausa){
-        isPausa = true;
-    } else if (isPausa){
-       isPausa = false;
-    }
-  };
-  
-  window.addEventListener("keydown",function (e){
-	var key = e.keyCode;
-	if (key == 80 || key == 13){
-		togglePausa();
-	}
-  });
-  
-  function random(min, max) {
-    var num = Math.floor(Math.random() * (max - min)) + min;
-    return num;
-  };
-
+      window.addEventListener("keydown",function (e){
+    	var key = e.keyCode;
+    	if (key == 80 || key == 13){
+    		togglePausa();
+    	}
+      });
+      
+      function random(min, max) {
+        var num = Math.floor(Math.random() * (max - min)) + min;
+        return num;
+      };
 </script>
+
 <body onload="startGame()">
-  <br>
-  <h1>Conigli di Fibonacci</h1>
-  <p>Leonardo Fibonacci intendeva trovare una legge matematica che descrivesse la crescita di una popolazione di conigli.</p>
-  <p>Assumendo per ipotesi che:</p>
-  <ul>
-    <li> si disponga di una coppia di conigli appena nati</li>
-    <li>questa coppia (la prima) diventi adulta al compimento del primo mese e dia alla luce una nuova coppia al compimento del secondo mese;</li>
-    <li>le nuove coppie nate si comportino in modo analogo;</li>
-    <li>le coppie adulte, dal secondo mese di vita in poi, diano alla luce una coppia di figli al mese;</li>
-  </ul>
-  <p>si verifica quanto segue:</p>
-  <ul>
-    <li>dopo un mese una coppia di conigli sarà adulta,</li>
-    <li>dopo due mesi ci saranno due coppie di cui una sola adulta,</li>
-    <li>nel mese seguente (terzo mese dal momento iniziale) ci saranno 2+1=3 coppie perché solo la coppia adulta avrà generato; di queste tre due saranno le coppie adulte, quindi</li>
-    <li>nel mese seguente (quarto mese dal momento iniziale) ci saranno 3+2=5 coppie</li>
-    <li>In questo esempio, il numero di coppie di conigli di ogni mese esprime la successione di Fibonacci.</li>
-  </ul>
-  <p>Testo da <a href="https://it.wikipedia.org/wiki/Successione_di_Fibonacci">Wikipedia</a></p>
+    <br>
+    <h1>Conigli di Fibonacci</h1>
+    <p>Leonardo Fibonacci intendeva trovare una legge matematica che descrivesse la crescita di una popolazione di conigli.</p>
+    <p>Assumendo per ipotesi che:</p>
+    <ul>
+        <li> si disponga di una coppia di conigli appena nati</li>
+        <li>questa coppia (la prima) diventi adulta al compimento del primo mese e dia alla luce una nuova coppia al compimento del secondo mese;</li>
+        <li>le nuove coppie nate si comportino in modo analogo;</li>
+        <li>le coppie adulte, dal secondo mese di vita in poi, diano alla luce una coppia di figli al mese;</li>
+    </ul>
+    <p>si verifica quanto segue:</p>
+    <ul>
+        <li>dopo un mese una coppia di conigli sarà adulta,</li>
+        <li>dopo due mesi ci saranno due coppie di cui una sola adulta,</li>
+        <li>nel mese seguente (terzo mese dal momento iniziale) ci saranno 2+1=3 coppie perché solo la coppia adulta avrà generato; di queste tre due saranno le coppie adulte, quindi</li>
+        <li>nel mese seguente (quarto mese dal momento iniziale) ci saranno 3+2=5 coppie</li>
+        <li>In questo esempio, il numero di coppie di conigli di ogni mese esprime la successione di Fibonacci.</li>
+    </ul>
+    <p>Testo da <a href="https://it.wikipedia.org/wiki/Successione_di_Fibonacci">Wikipedia</a></p>
 </body>
 
 </html>
