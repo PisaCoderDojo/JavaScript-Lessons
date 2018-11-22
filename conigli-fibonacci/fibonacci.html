@@ -23,7 +23,7 @@
   const MOVIMENTO = true;
   const MOUSE_CLICK = true;
     
-  var CUCCIOLI = true;
+  var MAX_COPPIE = false;
     
   var imgConiglio = new Image();
   imgConiglio.src = 'coniglietto.png';
@@ -52,7 +52,7 @@
 		});
 	
 		var coppie = contaCoppie();
-		if (CUCCIOLI) {
+		if (!MAX_COPPIE) {
 			for (var i = 0; i < coppie; i++){
 				var coniglio1 = new Coniglio();
 				conigli.push(coniglio1);
@@ -141,7 +141,7 @@
       if (mese < MAX_MESE){
          mese = mese + 1;
       } 
-      CUCCIOLI = (mese < MAX_MESE - 2 );
+      MAX_COPPIE = !(mese < MAX_MESE - 2 );
       return true;
     } else {
       return false;
