@@ -137,39 +137,46 @@
 		
 	  class Coniglio {
 		constructor() {
+	          // posizione (centrata) del coniglio
 		  this.x = random(80, WIDTH - 80);
 		  this.y = random(80, HEIGHT - 80);
-		  this.velX = random(-4, 4);
+		  // di quanto si sposta ad ogni update
+		  this.velX = random(-4, 4); 
 		  this.velY = random(-4, 4);
-		  this.size = 10
+		  // offset tra centro dell'immagine e angolo	
+		  this.size = 10; 
 		  this.age = 0;
 		}
 		draw() {
+	          // disegno dell'immagine sul canvas, prende l'angolo in alto a sinistra e le dimensioni
 		  areaGioco.context.drawImage(imgConiglio, this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
 		}
 		update() {
 		  if (this.age < 3) {
+			// cresce un pochino ogni anno fino ad età adulta
 			this.size += 0.06;
 		  }
-          
+          // booleano di controllo per il movimento
           if(!MOVIMENTO) return;    
-		  
-          if ((this.x + this.size) >= WIDTH) {
+		  // controlli della posizione
+		  // se il coniglio esce dallo schermo a destra
+          	  if ((this.x + this.size) >= WIDTH) {
 			this.velX = -(this.velX);
 			this.x = WIDTH - this.size - 1
-		  }
+		  }   // se il coniglio esce dallo schermo a sinistra
 		  if ((this.x - this.size) <= 0) {
 			this.velX = -(this.velX);
 			this.x = this.size + 1;
-		  }
+		  }   // se il coniglio esce dallo schermo sotto
 		  if ((this.y + this.size) >= HEIGHT) {
 			this.velY = -(this.velY);
 			this.y = HEIGHT - this.size - 1
-		  }
+		  }   // se il coniglio esce dallo schermo sopra
 		  if ((this.y - this.size) <= 0) {
 			this.velY = -(this.velY);
 			this.y = this.size + 1;
 		  }
+		  // calcolo la nuova posizione
 		  this.x += this.velX;
 		  this.y += this.velY;
 		}
@@ -205,11 +212,12 @@
        **/
           
       function isMese() {
+	// calcolo del frame mese
         var frameMese = (SEC_MESE * 1000) / FRAME_RATE
         if (areaGioco.frameNum % frameMese == 0) {
           if (mese < MAX_MESE){
-             mese = mese + 1;
-          } 
+             mese = mese + 1; // conto i mesi fino al massimo
+          } // limite coppie massime raggiunto
           MAX_COPPIE = !(mese < MAX_MESE - 2 );
           return true;
         } else {
