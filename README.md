@@ -6,3 +6,7 @@ JavaScript lessons and projects for the CoderDojo, materials adapted from:
 
 ## conigli-fibonacci
  Fibonacci's fictional and slightly unbelievable baby rabbits. Demo [CodePen](https://codepen.io/BuccaneerDev/full/EOZpzJ/).
+
+# Contribuire
+
+Link alla [guida](https://github.com/PisaCoderDojo/JavaScript-Lessons/blob/master/contributing.md) :heart:
